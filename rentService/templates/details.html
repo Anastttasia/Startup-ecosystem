@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/textSettings.css" %}">
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{% static "css/card.css" %}">
+    <link rel="stylesheet" href="{% static "css/cardService.css" %}">
+    <link rel="stylesheet" href="{% static "css/review.css" %}">
+    <link rel="stylesheet" href="{% static "css/calendar.css" %}">
+    <link rel="stylesheet" href="{% static "css/person_counter.css" %}">
+    <title>PlaySpot</title>
+</head>
+
+<body>
+
+    <header class="headerSmall">
+
+    </header>
+
+    <main>
+        <div class="contentDetails">
+
+            <div class="cardPart">
+                <div class="infoBlockApart">
+                    <a href="/" class="btnBack flexConRowStart">← Все площадки</a>
+                    <h2 style="justify-content: flex-start; margin-top: 0; margin-bottom: 25px;">{{playground.name}}</h2>
+
+                </div>
+
+                <div class="cardPart">
+                    <div class="imgBlock" style="width: 100%; margin-top: 1rem;">
+                        <div class="imgArrBlock">
+                            <img src="/static/images/playgrounds/{{playground.images}}/1.jpg" class="imgBig" id="mainPhoto">
+                            <button class="arrow left-arrow" id="prevPhoto"><img src="{% static "images/service/prevPhoto.svg" %}"></button>
+                            <button class="arrow right-arrow" id="nextPhoto"><img src="{% static "images/service/nextPhoto.svg" %}"></button>
+                        </div>
+
+
+                        <div class="imgBlockMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/1.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/2.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/3.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/4.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/5.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/6.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/7.jpg" class="imgMini">
+                            <img src="/static/images/playgrounds/{{playground.images}}/8.jpg" class="imgMini">
+                        </div>
+                    </div>
+
+                    <div id="rentSettings" class="rentSettings" style="position:static">
+                        <p class="priceSumDet" style="margin-bottom: 0.25rem;">{{playground.price}} ₽</p>
+                        <section class="priceDecDetSerDet" style="display: flex;  flex-direction: column; justify-content: flex-start;">
+                            <p>за 1 час</p>
+                            <p>включая налоги и сборы</p>
+                        </section>
+                    </div>
+
+                    <div class="informationBlockApart">
+                        <section class="informationBlockApartMin">
+                            <h3>Информация</h3>
+                            <p>
+                                Просторный зал для интенсивных тренировок, командных занятий и регулярной аренды. Подходит для проведения соревнований любого уровня,
+                                а также для учебно-тренировочного процесса.
+                            </p>
+                        </section>
+
+
+
+                        <section class="informationBlockApartMin">
+                            <h3>Календарь</h3>
+                            <form class="formApart" method="post" action="/createRent" style="margin-bottom: 4rem;">
+                                {% csrf_token %}
+                                <div id="datePicker" class="datePickerDetails"></div>
+                                <div class="inputBlockDetails" style="border: 1px solid rgba(0, 0, 0, 0.24); display: flex; justify-content:center;" id="dateText">
+                                    <img src="{% static "images/form/date.svg" %}" class="formIcon">
+                                    <input class="input" type="hidden" id="start-date-input" name="start-date-input">
+                                    <input class="input" type="hidden" id="end-date-input" name="end-date-input">
+
+                                    <p id="dateTextValue">Дата</p>
+                                </div>
+                                <div id="hoursRented" class="hoursContainer"></div>
+                                <input class="input" type="hidden" id="idPlayground" name="idPlayground" value="{{playground.id}}" >
+                                <input class="input" type="hidden" id="rentDate" name="rentDate" required>
+                                <input class="input" type="hidden" id="rentHours" name="rentHours" required>
+                                <input class="inputBlockDetails" type="text" id="personName" name="name" required placeholder="Имя" style="border: 1px solid rgba(0, 0, 0, 0.24); display: flex; justify-content:center; margin:1rem 0 0.5rem ">
+                                <input class="inputBlockDetails" type="tel" id="phone" name="phone" pattern="\+?[0-9\s\-\(\)]+" required placeholder="+70000000000" style="border: 1px solid rgba(0, 0, 0, 0.24); display: flex; justify-content:center;margin:0.5rem 0"/>
+                                <input class="btn" type="submit" required value="Забронировать">
+                            </form>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+{% comment %}            <div id="rentSettings" class="rentSettings">
+                <p class="priceSumDet" style="margin-bottom: 0.25rem;">990$</p>
+                <section class="priceDecDetSerDet">
+                    <p>за 9 ночей</p>
+                    <p>включая налоги и сборы</p>
+                </section>
+
+                <form class="formApart">
+                    <div id="personsPicker" class="personsCounterContainerDetails"></div>
+
+                    <div class="inputBlockDetails" style="border: 1px solid rgba(0, 0, 0, 0.24);" id="personsText">
+                        <img src="{% static "images/form/guests.svg" %}" class="formIcon">
+                        <input class="input" type="hidden" id="adults-input" name="adults-input">
+                        <input class="input" type="hidden" id="children-input" name="children-input">
+                        <p id="personsTextValue">Количество гостей</p>
+                    </div>
+
+                    <button class="btn">Забронировать</button>
+                </form>
+            </div>{% endcomment %}
+        </div>
+    </main>
+
+    <footer class="footerBackground">
+    </footer>
+
+    <script src="{% static "js/modal_window.js" %}"></script>
+    <script src="{% static "js/calendar.js" %}"></script>
+    <script src="{% static "js/person_counter.js" %}"></script>
+    <script src="{% static "js/photo_controller.js" %}"></script>
+</body>
+
+</html>

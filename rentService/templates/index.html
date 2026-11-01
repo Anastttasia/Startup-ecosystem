@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/textSettings.css" %}">
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{% static "css/card.css" %}">
+    <link rel="stylesheet" href="{% static "css/cardService.css" %}">
+    <link rel="stylesheet" href="{% static "css/review.css" %}">
+    <link rel="stylesheet" href="{% static "css/calendar.css" %}">
+    <link rel="stylesheet" href="{% static "css/person_counter.css" %}">
+    <title>PlaySpot</title>
+</head>
+
+<body>
+
+    <header class="headerBig">
+        <div class="startBanner">
+            <div class="content">
+                <div>
+                    <h1 class="montserrat-extrabold" style="margin: 0;">PlaySpot— ваш новый опыт в бронировании</h1>
+                    <p class="txtBanner">Проверьте доступность площадок на ваши даты</p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </header>
+
+    <main>
+        <div class="content">
+            <h2 style="justify-content: flex-start;">Наши площадки</h2>
+
+            <section class="wrapper">
+
+                {% for playground in playgrounds %}
+                    <a href="details?id={{playground.id}}" style="text-decoration: none;">
+                        <div class="card">
+                            <img class="imgCard" src="/static/images/playgrounds/{{playground.images}}/main_page.png" class="formIcon">
+
+                            <div class="cardInfo">
+                                <section class="flexConRowCenter">
+                                    <p class="nameCard">{{playground.name}}</p>
+                                </section>
+
+                                <section style="width: 100%;">
+                                    <section class="flexConRowStart priceBlock">
+                                        <p class="priceSum">{{playground.price}}</p>
+                                        <section class="priceDec" style="justify-content:flex-start">
+                                            <p>за 1 час</p>
+                                            <p>включая налоги и сборы</p>
+                                        </section>
+                                    </section>
+                                    <button class="btnBook"><p class="btnBookDesc">Проверить наличие</p></button>
+                                </section>
+
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </section>
+        </div>
+    </main>
+
+    <footer class="footerBackground">
+    </footer>
+
+
+    <script src="{% static "js/modal_window.js" %}"></script>
+    <script src="{% static "js/calendar.js" %}"></script>
+    <script src="{% static "js/person_counter.js" %}"></script>
+</body>
+
+</html>
